@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">biomatric</string>
+
+    <!-- finger print -->
+    <string name="biometric_failed">Fingerprint not recognized</string>
+    <string name="btn_authenticate">Login</string>
+
+    <string name="biometric_title">Fingerprint Login</string>
+    <string name="biometric_subtitle">Login to your application</string>
+    <string name="biometric_description">Place your finger on the device home button to verify your identity</string>
+    <string name="biometric_negative_button_text">Cancel</string>
+
+    <string name="biometric_error_sdk_not_supported">Sdk version not supported</string>
+    <string name="biometric_error_hardware_not_supported">Device does not support biometric authentication</string>
+    <string name="biometric_error_fingerprint_not_available">Fingerprint is not registered in device</string>
+    <string name="biometric_error_permission_not_granted">Permission is not granted by user</string>
+    <string name="biometric_failure">Login not successful!</string>
+    <string name="biometric_cancelled">Authentication cancelled by user</string>
+    <string name="biometric_success">Login Successful</string>
+
+    <!-- pin code -->
+    <string name="cancel_pf">Cancel</string>
+    <string name="use_pin_pf">Use pin</string>
+    <string name="sign_in_pf">Sign in</string>
+    <string name="ok_pf">OK</string>
+    <string name="next_pf">Next</string>
+    <string name="forgot_pf">Forgot?</string>
+    <string name="lock_screen_title_pf">Input pin code or use fingerprint</string>
+    <string name="settings_pf">Settings</string>
+    <string name="no_fingerprints_message_pf">No fingerprints found. Please add fingerprints in the settings if you want to use this authorization method."</string>
+    <string name="no_fingerprints_title_pf">"No fingerprints found"</string>
+    <string name="delete_pf">Delete</string>
+    <string name="done_pf">Done</string>
+
+    <string name="not_support_fingerprint_title">Not support fingerprint</string>
+    <string name="not_support_fingerprint_message">Not support fingerprint. Please verify with pin code</string>
+
+    <string name="fingerprint_not_recognized_pf">Fingerprint not recognized. Try again</string>
+    <string name="fingerprint_success_pf">Fingerprint recognized</string>
+    <string name="fingerprint_description_pf">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint_pf">Touch sensor</string>
+    <string name="description_fingerprint_icon_pf">Fingerprint icon</string>
+
+    <string name="title_create_pf">Create Code</string>
+    <string name="button_create_pf">Next</string>
+    <string name="title_confirm_pf">Create Code Confirm</string>
+    <string name="button_confirm_pf">Confirm</string>
+    <string name="title_auth_pf">Unlock with your pin code or fingerprint</string>
+
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="number_0">0</string>
+</resources>
