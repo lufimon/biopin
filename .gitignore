@@ -13,4 +13,3 @@
 /fastlane/report.xml
 
 gradlew*
-gradle/**
