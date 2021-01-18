@@ -15,8 +15,6 @@ class MainActivity : AppCompatActivity(){
         SecurityAuthentication.Builder(this)
             .setPinLength(6)
             .setContainerView(R.id.container_view)
-            .setUseFingerprint(true)
-            .setAutoFingerprint(true)
             .setLoginListenerr(object : PFLoginListener{
                 override fun onCodeInputSuccessful() {
                     Log.e("onCodeInputSuccessful", "onCodeInputSuccessful")
@@ -35,6 +33,9 @@ class MainActivity : AppCompatActivity(){
                 override fun onFingerprintError(errorCode: Int, errorString: String) {
                 }
 
+                override fun onForgetPassCode() {
+                    recreate()
+                }
             })
             .build()
             .create()

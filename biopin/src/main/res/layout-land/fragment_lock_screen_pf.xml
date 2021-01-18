@@ -283,7 +283,7 @@
                 android:text="@string/lock_screen_title_pf"
                 android:theme="@style/PFLockScreenTitleTextStyle" />
 
-            <com.beautycoder.pflockscreen.views.PFCodeView
+            <th.co.cdgs.mobile.biopin.pincode.views.PFCodeView
                 android:id="@+id/code_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

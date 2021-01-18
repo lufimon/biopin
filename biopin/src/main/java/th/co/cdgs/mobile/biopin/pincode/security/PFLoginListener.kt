@@ -6,4 +6,5 @@ interface PFLoginListener{
     fun onPinLoginFailed()
     fun onFingerprintLoginFailed()
     fun onFingerprintError(errorCode: Int, errorString: String)
+    fun onForgetPassCode()
 }

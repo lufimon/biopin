@@ -3,6 +3,7 @@ package th.co.cdgs.mobile.biopin.pincode
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -21,6 +22,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import org.w3c.dom.Text
 import th.co.cdgs.mobile.biopin.fingerprint.BiometricManager
 import th.co.cdgs.mobile.biopin.fingerprint.listener.BiometricCallback
 import th.co.cdgs.mobile.biopin.fingerprint.utils.BiometricUtils.isFingerprintAvailable
@@ -34,8 +36,8 @@ import th.co.cdgs.mobile.biopin.pincode.security.PFLoginListener
 class PFLockScreenFragment : Fragment() {
 
     private var mFingerprintButton: View? = null
-    private var mDeleteButton: TextView? = null
-    private var mNextButton: Button? = null
+    private var mDeleteButton: View? = null
+    private var mForgetButton: View? = null
     private var mCodeView: PFCodeView? = null
 
     private var mUseFingerPrint = true
@@ -48,6 +50,8 @@ class PFLockScreenFragment : Fragment() {
     private var mLoginListener: PFLoginListener? = null
     private var mCode = ""
     private var mEncodedPinCode = ""
+    private var passCodeFailedCount = 0
+    private var passCodeFailedMax = 3
 
     private var mConfiguration: PFFLockScreenConfiguration? = null
     private var mRootView: View? = null
@@ -83,12 +87,17 @@ class PFLockScreenFragment : Fragment() {
         getFingerprintAuthenticate(context)
     }
 
+    private val mOnForgetClickListener = View.OnClickListener {
+        deleteEncodeKey()
+        mLoginListener?.onForgetPassCode()
+    }
+
 
     private val mCodeListener = object : PFCodeView.OnPFCodeListener {
         override fun onCodeCompleted(code: String) {
             if (mIsCreateMode || mIsConfirmMode) {
-                mNextButton!!.visibility = View.VISIBLE
                 mCode = code
+                onNextMode()
                 return
             }
             mCode = code
@@ -103,8 +112,14 @@ class PFLockScreenFragment : Fragment() {
                     }
                     val isCorrect = result.mResult
                     if (isCorrect!!) {
+                        passCodeFailedCount = 0
+                        mForgetButton!!.visibility = View.GONE
                         mLoginListener?.onCodeInputSuccessful()
                     } else {
+                        passCodeFailedCount +=1
+                        if(passCodeFailedCount == passCodeFailedMax){
+                            mForgetButton!!.visibility = View.VISIBLE
+                        }
                         mLoginListener?.onPinLoginFailed()
                         errorAction()
                     }
@@ -117,51 +132,52 @@ class PFLockScreenFragment : Fragment() {
 
         override fun onCodeNotCompleted(code: String) {
             if (mIsCreateMode || mIsConfirmMode) {
-                mNextButton!!.visibility = View.INVISIBLE
                 return
             }
         }
     }
 
-
-    private val mOnNextButtonClickListener = View.OnClickListener {
-        mPFPinCodeViewModel.encodePin(context!!, mCode).observe(
-            this@PFLockScreenFragment,
-            Observer<PFResult<String>> { result ->
-                if (result == null) {
-                    return@Observer
-                }
-                if (result.mError != null) {
-                    Log.d(TAG, "Can not encode pin code")
-                    deleteEncodeKey()
-                    return@Observer
-                }
-                val encodedCode = result.mResult
-                if (mCodeCreateListener != null) {
-                    mCodeCreateListener!!.onCodeCreated(encodedCode!!)
-                }
+    private fun onNextMode(){
+        when{
+            mIsCreateMode -> {
+                mPFPinCodeViewModel.encodePin(context!!, mCode).observe(
+                        this@PFLockScreenFragment,
+                        Observer<PFResult<String>> { result ->
+                            if (result == null) {
+                                return@Observer
+                            }
+                            if (result.mError != null) {
+                                Log.d(TAG, "Can not encode pin code")
+                                deleteEncodeKey()
+                                return@Observer
+                            }
+                            val encodedCode = result.mResult
+                            if (mCodeCreateListener != null) {
+                                mCodeCreateListener!!.onCodeCreated(encodedCode!!)
+                            }
+                        }
+                )
             }
-        )
-    }
-
-    private val mOnConfirmButtonClickListener = View.OnClickListener {
-        mPFPinCodeViewModel.confirmPin(context!!, mCode).observe(
-            this@PFLockScreenFragment,
-            Observer<PFResult<Boolean>> { result ->
-                if (result == null) {
-                    return@Observer
-                }
-                if (result.mError != null) {
-                    Log.d(TAG, "Can not confirm pin code")
-                    deleteEncodeKey()
-                    return@Observer
-                }
-                val confirmCode = result.mResult
-                if (mCodeConfirmListener != null) {
-                    mCodeConfirmListener!!.onCodeConfirm(confirmCode!!)
-                }
+            mIsConfirmMode -> {
+                mPFPinCodeViewModel.confirmPin(context!!, mCode).observe(
+                        this@PFLockScreenFragment,
+                        Observer<PFResult<Boolean>> { result ->
+                            if (result == null) {
+                                return@Observer
+                            }
+                            if (result.mError != null) {
+                                Log.d(TAG, "Can not confirm pin code")
+                                deleteEncodeKey()
+                                return@Observer
+                            }
+                            val confirmCode = result.mResult
+                            if (mCodeConfirmListener != null) {
+                                mCodeConfirmListener!!.onCodeConfirm(confirmCode!!)
+                            }
+                        }
+                )
             }
-        )
+        }
     }
 
     private val biometricCallback = object :
@@ -242,13 +258,15 @@ class PFLockScreenFragment : Fragment() {
             ) as PFFLockScreenConfiguration?
         }
 
-        mFingerprintButton = view.findViewById(R.id.button_right)
-        mDeleteButton = view.findViewById(R.id.button_left)
-        mNextButton = view.findViewById(R.id.button_next)
+        mFingerprintButton = view.findViewById(R.id.button_left)
+        mDeleteButton = view.findViewById(R.id.button_right)
+        mForgetButton = view.findViewById(R.id.title_text_view_forget)
+        (mForgetButton as TextView).paintFlags = (mForgetButton as TextView).paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         mDeleteButton!!.setOnClickListener(mOnDeleteButtonClickListener)
         mDeleteButton!!.setOnLongClickListener(mOnDeleteButtonOnLongClickListener)
         mFingerprintButton!!.setOnClickListener(mOnFingerprintClickListener)
+        mForgetButton!!.setOnClickListener(mOnForgetClickListener)
 
 
         mCodeView = view.findViewById(R.id.code_view)
@@ -279,10 +297,6 @@ class PFLockScreenFragment : Fragment() {
             mDeleteButton!!.visibility = View.VISIBLE
         }
 
-        if (!isEmpty(configuration.getNextButton())) {
-            mNextButton!!.text = configuration.getNextButton()
-        }
-
         mUseFingerPrint = configuration.isUseFingerprint()
         if (mUseFingerPrint && mFingerprintHardwareDetected) {
             mFingerprintButton!!.visibility = View.VISIBLE
@@ -297,14 +311,6 @@ class PFLockScreenFragment : Fragment() {
             mDeleteButton!!.visibility = View.GONE
             mFingerprintButton!!.visibility = View.GONE
         }
-
-        when {
-            mIsCreateMode -> mNextButton!!.setOnClickListener(mOnNextButtonClickListener)
-            mIsConfirmMode -> mNextButton!!.setOnClickListener(mOnConfirmButtonClickListener)
-            else -> mNextButton!!.setOnClickListener(null)
-        }
-
-        mNextButton!!.visibility = View.INVISIBLE
         mCodeView!!.setCodeLength(mConfiguration!!.getCodeLength())
     }
 
