@@ -27,5 +27,5 @@
     <dimen name="button_lock_screen_fp_margin_vertical">25dp</dimen>
     <dimen name="code_fp_size">21dp</dimen>
     <dimen name="code_fp_margin">5dp</dimen>
-    <dimen name="button_number_size">20sp</dimen>
+    <dimen name="button_number_size">40sp</dimen>
 </resources>
