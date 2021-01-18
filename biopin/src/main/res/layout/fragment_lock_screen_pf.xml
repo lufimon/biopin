@@ -1,49 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_pf"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_pf">
 
-
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
         style="?pf_lock_screen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:theme="@style/PFLockScreenStyle" />
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="66dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_logo" />
 
-    <LinearLayout
-        android:layout_width="300dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_marginTop="26dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/title_text_view"
             style="?pf_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_gravity="center"
             android:text="@string/lock_screen_title_pf"
-            android:theme="@style/PFLockScreenTitleTextStyle" />
+            android:theme="@style/PFLockScreenTitleTextStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <th.co.cdgs.mobile.biopin.pincode.views.PFCodeView
             android:id="@+id/code_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="16dp"
+            android:weightSum="16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text_view" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/title_text_view_forget"
+            style="?pf_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:text="@string/lock_screen_title_pf_forget"
+            android:theme="@style/PFLockScreenTitleForgetTextStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/code_view" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear_top_num_pad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text_view_forget">
+
+            <View
+                android:id="@+id/view_pad_col_1"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/line_vertical_num_pad"
+                app:layout_constraintBottom_toBottomOf="@+id/frame_button_0"
+                app:layout_constraintEnd_toStartOf="@id/frame_button_2"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_1"
+                app:layout_constraintTop_toTopOf="@+id/frame_button_1" />
+
+            <View
+                android:id="@+id/view_pad_col_2"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/line_vertical_num_pad"
+                app:layout_constraintBottom_toBottomOf="@+id/frame_button_0"
+                app:layout_constraintEnd_toStartOf="@id/frame_button_3"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_2"
+                app:layout_constraintTop_toTopOf="@+id/frame_button_2" />
 
             <FrameLayout
+                android:id="@+id/frame_button_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@id/frame_button_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/button_1"
@@ -58,9 +120,13 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@id/frame_button_3"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_1"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/button_2"
@@ -75,9 +141,13 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/frame_button_2"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/button_3"
@@ -91,18 +161,25 @@
                     android:theme="@style/PFLockScreenButtonStyle" />
             </FrameLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
+            <View
+                android:id="@+id/view_pad_row_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/line_horizontal_num_pad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frame_button_3" />
 
             <FrameLayout
+                android:id="@+id/frame_button_4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@id/frame_button_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_1">
 
                 <TextView
                     android:id="@+id/button_4"
@@ -117,9 +194,13 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@id/frame_button_6"
+                app:layout_constraintStart_toEndOf="@id/frame_button_4"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_1">
 
                 <TextView
                     android:id="@+id/button_5"
@@ -134,9 +215,13 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/frame_button_5"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_1">
 
                 <TextView
                     android:id="@+id/button_6"
@@ -150,18 +235,25 @@
                     android:theme="@style/PFLockScreenButtonStyle" />
             </FrameLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
+            <View
+                android:id="@+id/view_pad_row_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/line_horizontal_num_pad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frame_button_5" />
 
             <FrameLayout
+                android:id="@+id/frame_button_7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@+id/frame_button_8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_2">
 
                 <TextView
                     android:id="@+id/button_7"
@@ -176,9 +268,13 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@+id/frame_button_9"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_7"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_2">
 
                 <TextView
                     android:id="@+id/button_8"
@@ -193,9 +289,13 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_8"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_2">
 
                 <TextView
                     android:id="@+id/button_9"
@@ -209,38 +309,46 @@
                     android:theme="@style/PFLockScreenButtonStyle" />
             </FrameLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
+            <View
+                android:id="@+id/view_pad_row_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/line_horizontal_num_pad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frame_button_8" />
 
             <FrameLayout
+                android:id="@+id/frame_button_left"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@+id/frame_button_0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_3">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/button_left"
-                    style="?pf_hint"
+                    style="?pf_fingerprint_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:background="@drawable/side_button_background_pf"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:gravity="center"
-                    android:text="@string/delete_pf"
-                    android:textSize="@dimen/button_number_size"
-                    android:theme="@style/PFLockScreenHintTextStyle" />
+                    android:scaleType="center"
+                    android:theme="@style/PFLockScreenFingerPrintButtonStyle" />
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@+id/frame_button_right"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_left"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_3">
 
                 <TextView
                     android:id="@+id/button_0"
@@ -255,41 +363,25 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_button_right"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/frame_button_0"
+                app:layout_constraintTop_toBottomOf="@+id/view_pad_row_3">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/button_right"
-                    style="?pf_fingerprint_button"
+                    style="?pf_delete_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:background="@drawable/side_button_background_pf"
                     android:gravity="center"
-                    android:theme="@style/PFLockScreenFingerPrintButtonStyle" />
-
+                    android:theme="@style/PFLockScreenDeleteButtonStyle" />
             </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_next"
-                style="?pf_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="@string/next_pf"
-                android:theme="@style/PFLockScreenNextTextStyle"
-                android:visibility="visible" />
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

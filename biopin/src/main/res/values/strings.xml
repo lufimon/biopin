@@ -46,6 +46,7 @@
     <string name="title_confirm_pf">Create Code Confirm</string>
     <string name="button_confirm_pf">Confirm</string>
     <string name="title_auth_pf">Unlock with your pin code or fingerprint</string>
+    <string name="lock_screen_title_pf_forget">Forget Passcode</string>
 
     <string name="number_1">1</string>
     <string name="number_2">2</string>
