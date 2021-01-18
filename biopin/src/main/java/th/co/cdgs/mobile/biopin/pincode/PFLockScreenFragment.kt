@@ -32,6 +32,7 @@ import th.co.cdgs.mobile.biopin.pincode.viewmodels.PFPinCodeViewModel
 import th.co.cdgs.mobile.biopin.pincode.views.PFCodeView
 import th.co.cdgs.mobile.biopin.R
 import th.co.cdgs.mobile.biopin.pincode.security.PFLoginListener
+import th.co.cdgs.mobile.biopin.settings.PreferencesSettings
 
 class PFLockScreenFragment : Fragment() {
 
@@ -120,6 +121,7 @@ class PFLockScreenFragment : Fragment() {
                         if(passCodeFailedCount == passCodeFailedMax){
                             mForgetButton!!.visibility = View.VISIBLE
                         }
+                        mCodeView!!.clearCode()
                         mLoginListener?.onPinLoginFailed()
                         errorAction()
                     }
@@ -171,6 +173,9 @@ class PFLockScreenFragment : Fragment() {
                                 return@Observer
                             }
                             val confirmCode = result.mResult
+                            if(confirmCode != true){
+                                mCodeView?.clearCode()
+                            }
                             if (mCodeConfirmListener != null) {
                                 mCodeConfirmListener!!.onCodeConfirm(confirmCode!!)
                             }
@@ -406,6 +411,8 @@ class PFLockScreenFragment : Fragment() {
                     Log.d(TAG, "Can not delete the alias")
                     return@Observer
                 }
+                PreferencesSettings.saveToConfirm(requireContext(), false)
+                PreferencesSettings.saveToUseFingerprint(requireContext(), false)
             }
         )
     }

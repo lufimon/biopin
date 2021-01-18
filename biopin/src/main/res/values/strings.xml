@@ -41,9 +41,9 @@
     <string name="fingerprint_hint_pf">Touch sensor</string>
     <string name="description_fingerprint_icon_pf">Fingerprint icon</string>
 
-    <string name="title_create_pf">สร้าง PIN</string>
+    <string name="title_create_pf">กรุณาสร้างรหัส PIN</string>
     <string name="button_create_pf">ต่อไป</string>
-    <string name="title_confirm_pf">ยืนยันสร้าง PIN</string>
+    <string name="title_confirm_pf">กรุณยืนยันรหัส PIN</string>
     <string name="button_confirm_pf">ยืนยัน</string>
     <string name="title_auth_pf">กรุณาใส่รหัส PIN</string>
     <string name="lock_screen_title_pf_forget">ลืมรหัส PIN</string>

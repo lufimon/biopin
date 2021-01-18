@@ -48,8 +48,8 @@ class SecurityAuthentication private constructor(builder: Builder): Serializable
         fingerprintNegativeButtonText = builder.fingerprintNegativeButtonText
     }
 
-    fun create(){
-        showLockScreenFragment()
+    fun create(isRecreate: Boolean = false){
+        showLockScreenFragment(isRecreate)
     }
 
     private val mCodeCreateListener =
@@ -64,30 +64,35 @@ class SecurityAuthentication private constructor(builder: Builder): Serializable
         object : PFLockScreenFragment.OnPFLockScreenCodeConfirmListener {
             override fun onCodeConfirm(isConfirm: Boolean) {
                 if (isConfirm) {
-                    showLockScreenAuth()
+                    mLoginListener?.onConfirmSuccessful()
                 } else {
-                    showLockScreenCreate()
+                    mLoginListener?.onConfirmFailed()
                 }
             }
         }
 
-    private fun showLockScreenFragment() {
-        PFPinCodeViewModel().isPinCodeEncryptionKeyExist().observe(
-            activity!!,
-            Observer<PFResult<Boolean>> { result ->
-                if (result == null) {
-                    return@Observer
+    private fun showLockScreenFragment(isRecreate: Boolean) {
+        if(isRecreate){
+            showLockScreenCreate()
+        } else {
+            PFPinCodeViewModel().isPinCodeEncryptionKeyExist().observe(
+                activity!!,
+                Observer<PFResult<Boolean>> { result ->
+                    val isConfirm = PreferencesSettings.getConfirm(activity!!.applicationContext)
+                    if (result == null) {
+                        return@Observer
+                    }
+                    if (result.mError != null) {
+                        return@Observer
+                    }
+                    if (result.mResult!! && isConfirm) {
+                        showLockScreenAuth()
+                    } else {
+                        showLockScreenCreate()
+                    }
                 }
-                if (result.mError != null) {
-                    return@Observer
-                }
-                if (result.mResult!!) {
-                    showLockScreenAuth()
-                } else {
-                    showLockScreenCreate()
-                }
-            }
-        )
+            )
+        }
     }
 
     private fun showLockScreenCreate() {

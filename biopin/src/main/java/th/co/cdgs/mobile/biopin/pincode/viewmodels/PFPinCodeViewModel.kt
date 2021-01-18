@@ -53,10 +53,13 @@ class PFPinCodeViewModel : ViewModel() {
             object :
                 PFPinCodeHelperCallback<Boolean> {
                 override fun onResult(result: PFResult<Boolean>) {
+                    PreferencesSettings.saveToUseFingerprint(context, false)
                     if(result.mResult!!) {
+                        PreferencesSettings.saveToConfirm(context, true)
                         liveData.setData(PFResult(true))
                     } else {
                         PreferencesSettings.saveToPref(context, PreferencesSettings.DEFAULT_CODE)
+                        PreferencesSettings.saveToConfirm(context, false)
                         liveData.setData(PFResult(false))
                     }
                 }

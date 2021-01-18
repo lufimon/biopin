@@ -20,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayoutCompat"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="26dp"
         android:orientation="vertical"
@@ -70,9 +70,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linear_top_num_pad"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="32dp"
-            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,6 +102,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_1"
                 app:layout_constraintEnd_toStartOf="@id/frame_button_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -124,6 +124,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_1"
                 app:layout_constraintEnd_toStartOf="@id/frame_button_3"
                 app:layout_constraintStart_toEndOf="@+id/frame_button_1"
                 app:layout_constraintTop_toTopOf="parent">
@@ -145,6 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/frame_button_2"
                 app:layout_constraintTop_toTopOf="parent">
@@ -177,6 +179,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_2"
                 app:layout_constraintEnd_toStartOf="@id/frame_button_5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_pad_row_1">
@@ -198,6 +201,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_2"
                 app:layout_constraintEnd_toStartOf="@id/frame_button_6"
                 app:layout_constraintStart_toEndOf="@id/frame_button_4"
                 app:layout_constraintTop_toBottomOf="@+id/view_pad_row_1">
@@ -219,6 +223,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/frame_button_5"
                 app:layout_constraintTop_toBottomOf="@+id/view_pad_row_1">
@@ -251,6 +256,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_3"
                 app:layout_constraintEnd_toStartOf="@+id/frame_button_8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_pad_row_2">
@@ -272,6 +278,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_3"
                 app:layout_constraintEnd_toStartOf="@+id/frame_button_9"
                 app:layout_constraintStart_toEndOf="@+id/frame_button_7"
                 app:layout_constraintTop_toBottomOf="@+id/view_pad_row_2">
@@ -293,6 +300,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/view_pad_row_3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/frame_button_8"
                 app:layout_constraintTop_toBottomOf="@+id/view_pad_row_2">
@@ -323,7 +331,7 @@
             <FrameLayout
                 android:id="@+id/frame_button_left"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:layout_constraintEnd_toStartOf="@+id/frame_button_0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -332,8 +340,8 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/button_left"
                     style="?pf_fingerprint_button"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
                     android:layout_gravity="center"
                     android:background="@drawable/side_button_background_pf"
                     android:gravity="center"
@@ -365,7 +373,7 @@
             <FrameLayout
                 android:id="@+id/frame_button_right"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/frame_button_0"
@@ -374,11 +382,12 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/button_right"
                     style="?pf_delete_button"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
                     android:layout_gravity="center"
                     android:background="@drawable/side_button_background_pf"
                     android:gravity="center"
+                    android:scaleType="center"
                     android:theme="@style/PFLockScreenDeleteButtonStyle" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
