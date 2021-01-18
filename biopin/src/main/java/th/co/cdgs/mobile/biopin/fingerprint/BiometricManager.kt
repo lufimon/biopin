@@ -12,12 +12,12 @@ import th.co.cdgs.mobile.biopin.fingerprint.v28.BiometricCallbackV28
 import java.util.concurrent.Executors
 
 
-class BiometricManager : BiometricManagerV23 {
+class BiometricManager(biometricBuilder: BiometricBuilder) : BiometricManagerV23() {
 
 
     internal var cancellationSignal = CancellationSignal()
 
-    constructor(biometricBuilder: BiometricBuilder) {
+    init {
         this.activity = biometricBuilder.activity
         this.title = biometricBuilder.title
         this.subtitle = biometricBuilder.subtitle
@@ -110,16 +110,12 @@ class BiometricManager : BiometricManagerV23 {
     }
 
 
-    class BiometricBuilder {
-        internal var activity: FragmentActivity? = null
+    class BiometricBuilder(activity: FragmentActivity) {
+        internal var activity: FragmentActivity? = activity
         internal var title: String? = null
         internal var subtitle: String? = null
         internal var description: String? = null
         internal var negativeButtonText: String? = null
-
-        constructor(activity: FragmentActivity) {
-            this.activity = activity
-        }
 
         fun setTitle(title: String): BiometricBuilder {
             this.title = title
